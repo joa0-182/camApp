@@ -1,0 +1,79 @@
+npm i -g @ionic/cli
+
+ionic start camApp blank --type=angular
+NgModules
+
+Entrar na pasta do projeto
+
+npm install @capacitor/camera @capacitor/preferences @capacitor/filesystem
+
+npm install @ionic/pwa-elements
+
+Colocar os imports no Main.ts da >> Your First Ionic App: Angular
+
+
+
+instalar depois o ng add @angular/pwa
+
+analise? não
+
+@angular/pwa - sim
+
+
+ionic build --prod (para testar tudo e ve se vai da certo)
+
+ionic serve
+
+Adicionar o botao na home
+
+ionic g service services/foto
+
+foto.service.ts >> o import: 
+import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
+import { Filesystem, Directory } from '@capacitor/filesystem';
+import { Preferences } from '@capacitor/preferences';
+
+
+
+criar uma pasta de interfaces
+dentro da pasta : Foto.interface.ts
+
+
+Foto.service.ts >> cria a lista de fotos que vão estar armazanadas no dispositivo:
+
+export class FotoService {
+
+  fotos: Foto[] = []
+
+  constructor() { }
+}
+
+
+ //cria a variavel que armazena o local fisico (pasta) de armazenamento de fotos
+  private FOTO_ARMAZENAMENTO: string = 'fotos';
+
+
+fazer um metodo async de tirarFoto()
+
+fotos: Foto[] = []
+
+  //cria a variavel que armazena o local fisico (pasta) de armazenamento de fotos
+  private FOTO_ARMAZENAMENTO: string = 'fotos';
+
+  constructor() { }
+  //Função para tirar / buscar novas fotos
+  async tirarFoto(){
+    // chama a função de camera e armazena o arquivo na constante
+    const fotoCapturada = await Camera.getPhoto({
+      resultType: CameraResultType.Uri, // Dados baseados em arquivos | oferece melhor desempenho
+      source: CameraSource.Camera, //tira uma nova foto com a camera
+      quality: 100 // qualidade da imagem tirada, vai de 0 a 100
+    })
+
+
+puxar no home.page.ts
+
+tirarFoto() {
+    this.fotoService.tirarFoto();
+  }
+
