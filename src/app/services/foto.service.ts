@@ -5,6 +5,7 @@ import { Capacitor } from '@capacitor/core';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { Preferences } from '@capacitor/preferences';
 import { Platform } from '@ionic/angular';
+import { actionSheetController } from '@ionic/core';
 import { Foto } from '../Interfaces/Foto.interface';
 
 @Injectable({
@@ -16,6 +17,7 @@ export class FotoService {
 
   //cria a variavel que armazena o local fisico (pasta) de armazenamento de fotos
   private FOTO_ARMAZENAMENTO: string = 'fotos';
+  actionSheetController: any;
 
   constructor(private platform: Platform) { }
 
@@ -45,7 +47,7 @@ export class FotoService {
     const fotoCapturada = await Camera.getPhoto({
       resultType: CameraResultType.Uri, // Dados baseados em arquivos | oferece melhor desempenho
       source: CameraSource.Camera, //tira uma nova foto com a camera
-      quality: 100 // qualidade da imagem tirada, vai de 0 a 100
+      quality: 50, // qualidade da imagem tirada, vai de 0 a 100 ///// Trocar para 50 para não precisar fazer compactação de imagem
     });
 
     const salvarArquivoFoto = await this.salvarFoto(fotoCapturada);
